@@ -10,13 +10,15 @@ const Search = require('./common/search');
 module.exports = class extends Component {
     render() {
         const { site, config, page, helper, body } = this.props;
-
+        const {is_home} = helper;
         const language = page.lang || page.language || config.language;
         const columnCount = Widgets.getColumnCount(config.widgets, config, page);
 
         return <html lang={language ? language.substr(0, 2) : ''}>
             <Head site={site} config={config} helper={helper} page={page} />
             <body class={`is-${columnCount}-column`}>
+                <script type="text/javascript" src="/js/night.js"></script>
+                <canvas id="universe"></canvas>
                 <Navbar config={config} helper={helper} page={page} />
                 <section class="section">
                     <div class="container">
@@ -26,11 +28,12 @@ module.exports = class extends Component {
                                 'order-2': true,
                                 'column-main': true,
                                 'is-12': columnCount === 1,
-                                'is-8-tablet is-8-desktop is-8-widescreen': columnCount === 2,
+                                'is-8-tablet is-8-desktop is-8-widescreen': !is_home() || columnCount === 2,
                                 'is-8-tablet is-8-desktop is-6-widescreen': columnCount === 3
                             })} dangerouslySetInnerHTML={{ __html: body }}></div>
                             <Widgets site={site} config={config} helper={helper} page={page} position={'left'} />
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'right'} />
+                            {is_home()? <Widgets site={site} config={config} helper={helper} page={page} position={'right'} /> : null}
+                            {/* <Widgets site={site} config={config} helper={helper} page={page} position={'right'} /> */}
                         </div>
                     </div>
                 </section>
