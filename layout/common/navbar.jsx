@@ -13,37 +13,6 @@ function isSameLink(a, b) {
     return santize(a) === santize(b);
 }
 
-function renderIcon(param) {
-    if (param === '首页' || param === 'Home') {
-        //return 'fas fa-home faa-horizontal';
-        return '🌈'
-    }
-    else if (param === '归档' || param === 'Archives'){
-        //return 'fa fa-archive faa-shake';
-        return '🗂️'
-    }
-    else if (param === '分类' || param === 'Categories'){
-        //return 'fa fa-list-ul faa-vertical';
-        return '🪁'
-    }
-    else if (param === '标签' || param === 'Tags'){
-        //return 'fas fa-tags faa-tada';
-        return '🏷️'
-    }
-    else if (param === '友链' || param === 'Friends'){
-        //return 'fa fa-leaf faa-wrench';
-        return '🎉'
-    }
-    else if (param === '关于' || param === 'About'){
-        //return 'fa fa-leaf faa-wrench';
-        return '🎐'
-    }
-    else if (param === '赞赏' || param === 'Donate'){
-        //return 'fa fa-leaf faa-wrench';
-        return '💕'
-    }
-    else return '🎈'
-}
 
 class Navbar extends Component {
     render() {
@@ -79,7 +48,7 @@ class Navbar extends Component {
                     </a> */}
                     <span class="logolink">
                         <a class="navbar-item navbar-logo" href={siteUrl}>
-                            <span class="sakuraso">千反田</span>
+                            <span class="sakuraso">{navbarLogo}</span>
                             <span class="no">の</span>
                             <span class="shironeko">μ's</span>
                         </a>
@@ -89,11 +58,7 @@ class Navbar extends Component {
                     {Object.keys(menu).length ? <div class="navbar-start">
                         {Object.keys(menu).map(name => {
                             const item = menu[name];
-                            const icon = renderIcon(name);
-                            return <a class={classname({ 'navbar-item': true, 'is-active': item.active })} href={item.url}>
-                                {/* {icon? <i class={icon}></i> : null}&nbsp; */}
-                                {icon? icon : null}&nbsp; 
-                                {name}</a>;
+                            return <a class={classname({ 'navbar-item': true, 'is-active': item.active })} href={item.url}>{name}</a>;
                         })}
                     </div> : null}
                     <div class="navbar-end">
